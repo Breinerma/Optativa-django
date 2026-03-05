@@ -1,0 +1,16 @@
+{% load static %}
+
+<html lang="es">
+    <head>
+        <meta charset="uft-8">
+        <title> {% block title  %} Django IA Lab{% endblock  %} Django IA Lab %} </title>
+        <link rel="stylesheet" href="{% static "css/main.css" %}}">
+    </head>
+    <body>
+        {% include "tienda/partials/navbar.html" %}
+        <main>
+{% block content %}{% endblock %}
+</main>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
