@@ -1,10 +1,13 @@
 {% extends "tienda./base.html" %} {% block title %} Inicio - Django IA Lab {% endblock %} {% block content %}
 <h1>Productos</h1>
+<p> 
+  <a href="{% url 'tienda:crear_producto' %}"> Nuevo Producto </a>
+</p>
 <ul>
   {% for p in productos %}
   <li>
-    <a href=" {% url 'tienda:detalle_prducto' p.pk %}">{{p.nombre}}</a>-
-    ${{p.precio|floatformat:2}}
+    <a href=" {% url 'tienda:detalle_prducto' p.pk %}">{{ p.nombre }}</a> -
+    ${{ p.precio|floatformat:2 }}
   </li>
   {% endfor %}
 </ul>

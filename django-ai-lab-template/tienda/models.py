@@ -34,3 +34,4 @@ class Pedido(models.Model):
     
     def __str__(self):
         return f"Pedido #{self.pk} - {self.Cliente.nombre} ({self.estado})"
+    
