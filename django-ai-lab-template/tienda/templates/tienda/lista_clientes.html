@@ -1,6 +1,7 @@
 {% extends "tienda/base.html" %}
 
 {% block title %}Clientes {% endblock %}
+{% load django_browser_reload %}
 
 {% block content %}
     <h1>Cientes</h1>
@@ -17,4 +18,5 @@
         
         {% endfor %}
     </ul>
+    {% django_browser_reload_script %}
 {% endblock %}

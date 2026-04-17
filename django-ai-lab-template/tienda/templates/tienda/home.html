@@ -1,5 +1,9 @@
 {% extends "tienda./base.html" %} 
 {% block title %} Inicio - Tienda Django IA Lab {% endblock %} 
+{% load django_browser_reload %}
+
 {% block content %}
-<h1>¡Bienvenido a la tienda!</h1>
+    <h1>¡Bienvenido a la tienda!</h1>
+
+    {% django_browser_reload_script %}
 {% endblock %}

@@ -1,17 +1,18 @@
 {% extends "tienda/base.html" %}
 {% block title %}Editar: {{ cliente.nombre }} {% endblock %}
+{% load django_browser_reload %}
 
 {% block content %}
-<h1>Editar Cliente</h1>
+    <h1>Editar Cliente</h1>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn primary">Actualizar</button>
-</form>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn primary">Actualizar</button>
+    </form>
+    <p>
+        <a href="{% url 'tienda:lista_clientes'  %}" class="btn primary">Volver a detalles</a>
+    </p>
 
-<p>
-    <a href="{% url 'tienda:lista_clientes'  %}" class="btn primary">Volver a detalles</a>
-</p>
-
+    {% django_browser_reload_script %}
 {% endblock %}

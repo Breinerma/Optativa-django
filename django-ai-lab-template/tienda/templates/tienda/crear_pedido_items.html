@@ -1,36 +1,34 @@
 {% extends "tienda/base.html" %}
-{% block title %}Nuevo Pedido {% endblock %}
+{% block title %} Nuevo Pedido {% endblock %}
+{% load django_browser_reload %}
+
 {% block content %}
-<h1> 
-    Nuevo Pedido
-</h1>
-<form method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend> Datos del pedido</legend>
-        {{ pedido_form.as_p }}
-    </fieldset>
+    <h1> Nuevo Pedido </h1>
+    <form method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend> Datos del pedido </legend>
+            {{ pedido_form.as_p }}
+        </fieldset>
 
-    <fieldset>
-        <legend> 
-            ítems 
-        </legend>
-        {% for form in formser %}
-            <div class="item">
-                {{ form.as.p}}
-                {% if form.instance.pk %}
-                    <label>
-                        {{ form.DELETE }} 
-                    </label>
-                {% endif %}
-            </div>
-        {% endfor %}
+        <fieldset>
+            <legend> ítems </legend>
+            {% for form in formser %}
+                <div class="item">
+                    {{ form.as.p}}
+                    {% if form.instance.pk %}
+                        <label>
+                            {{ form.DELETE }} 
+                        </label>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
-    </fieldset>
+        </fieldset>
 
-    <button class="btn" type="submit"> Guardar </button>
-    <a href="{% url 'tienda:lista_pedidos' %}"> Cancelar </a>
-</form>
+        <button class="btn" type="submit"> Guardar </button>
+        <a href="{% url 'tienda:lista_pedidos' %}"> Cancelar </a>
+    </form>
 
-
+    {% django_browser_reload_script %}
 {% endblock  %}

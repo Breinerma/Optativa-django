@@ -1,29 +1,32 @@
 {% extends "tienda./base.html" %} 
 {% block title %} Pedido {{pedido.id}} {% endblock %} 
+{% load django_browser_reload %}
+
 {% block content %}
-<h1>Pedido # {{pedido.id}}</h1>
-<p><b>Cliente: </b> {{  pedido.cliente.nombre  }}</p>
-<p><b>Estado: </b> {{  pedido.estado  }}</p>
-<h3> Productos  </h3>
-{% if items %}
-    <table> 
-        <tr>
-            <th class="encabezado">Producto</th>
-            <th class="encabezado">Cantidad</th>
-            <th class="encabezado">Precio Unitario</th>
-            <th class="encabezado">Sub Total</th>
-        </tr>
-        {% for it in items %}
+    <h1>Pedido # {{pedido.id}}</h1>
+    <p><b>Cliente: </b> {{  pedido.cliente.nombre  }}</p>
+    <p><b>Estado: </b> {{  pedido.estado  }}</p>
+    <h3> Productos  </h3>
+    {% if items %}
+        <table> 
             <tr>
-                <td>{{ it.producto.nombre}}</td>
-                <td>{{ it.cantidad}}</td>
-                <td>{{ it.precio_unitario|floatformat:2}}</td>
-                <td>{{ it.inline_total|floatformat:2}}</td>
+                <th class="encabezado">Producto</th>
+                <th class="encabezado">Cantidad</th>
+                <th class="encabezado">Precio Unitario</th>
+                <th class="encabezado">Sub Total</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for it in items %}
+                <tr>
+                    <td>{{ it.producto.nombre}}</td>
+                    <td>{{ it.cantidad}}</td>
+                    <td>{{ it.precio_unitario|floatformat:2}}</td>
+                    <td>{{ it.inline_total|floatformat:2}}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
-{% else %}
-{% endif %}
+    {% else %}
+    {% endif %}
 
+    {% django_browser_reload_script %}
 {% endblock %}
