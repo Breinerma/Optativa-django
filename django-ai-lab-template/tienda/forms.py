@@ -33,22 +33,22 @@ class ProductoForm(forms.ModelForm):
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = ["nombre", "correo", "activo"]
+        fields = ["nombre", "email", "activo"]
         widgets = {
             "nombre": forms.TextInput(attrs={"placeholder": "Nombre completo"}),
-            "correo": forms.EmailInput(attrs={"placeholder": "ejemplo@correo.com"}),
+            "email": forms.EmailInput(attrs={"placeholder": "ejemplo@correo.com"}),
         
         }
 
 class PedidoSimpleForm(forms.ModelForm):
     class Meta:
        model = Pedido
-       fields = ["cliente", "estado"]
+       fields = ["Cliente", "estado"]
        
 class PedidoItemForm(forms.ModelForm):
     class Meta:
        model = PedidoItem
-       fields = ["producto", "cantidad", "precio_unitario"]
+       fields = ["productos", "cantidad", "precio_unitario"]
        widgets = {
            "cantidad": forms.NumberInput(attrs={"min": "1", "step": "1"}),
             "precio_unitario": forms.NumberInput(attrs={"min": "0", "step": "0.01"}) }
