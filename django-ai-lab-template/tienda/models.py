@@ -28,10 +28,19 @@ class Pedido(models.Model):
         ("CERRADO", "Cerrado"),
     ]
     Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="pedidos")
-    productos = models.ManyToManyField(Producto, related_name="pedidos")
     fecha = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=10, choices=ESTADOS, default="CREADO")
     
     def __str__(self):
         return f"Pedido #{self.pk} - {self.Cliente.nombre} ({self.estado})"
     
+class PedidoItem(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name="items")
+    productos = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="items")
+    cantidad = models.PositiveIntegerField(default=1)
+    prescio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    class Meta:
+        '''
+        No se pemitirá que existan dos filas con la misma
+        '''
