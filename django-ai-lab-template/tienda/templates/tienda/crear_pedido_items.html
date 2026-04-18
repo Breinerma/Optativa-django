@@ -12,18 +12,18 @@
         </fieldset>
 
         <fieldset>
-            <legend> ítems </legend>
-            {% for form in formser %}
+            <legend> Ítems </legend>
+            {{ formset.management_form }}
+            {% for form in formset %}
                 <div class="item">
-                    {{ form.as.p}}
+                    {{ form.as_p }}
                     {% if form.instance.pk %}
                         <label>
-                            {{ form.DELETE }} 
+                            {{ form.DELETE }}
                         </label>
                     {% endif %}
                 </div>
             {% endfor %}
-
         </fieldset>
 
         <button class="btn" type="submit"> Guardar </button>
@@ -31,4 +31,4 @@
     </form>
 
     {% django_browser_reload_script %}
-{% endblock  %}
+{% endblock %}

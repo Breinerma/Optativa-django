@@ -88,7 +88,7 @@ def eliminar_pedido(request, pk):
 #Crear Pedido con Items
 @transaction.atomic
 def crear_pedido_items(request):
-    if request.method =="POST":
+    if request.method == "POST":
         pedido_form = PedidoSimpleForm(request.POST)
         if pedido_form.is_valid():
             pedido = pedido_form.save()
@@ -96,16 +96,19 @@ def crear_pedido_items(request):
             if formset.is_valid():
                 formset.save()
                 return redirect("tienda:detalle_pedido", pk=pedido.pk)
-            else:
-                pedido = Pedido()
-                formset = PedidoItemFormSet(request.POST, instance=pedido)
-        else:
-            pedido_form = PedidoSimpleForm()
-            formset = PedidoItemFormSet()
+            # Si el formset falla, hay que borrar el pedido guardado
+    else:
+        pedido_form = PedidoSimpleForm()
+        formset = PedidoItemFormSet()
+
     productos = Producto.objects.all()
     productos_dict = {str(p.id): float(p.precio) for p in productos}
-        
-    return render(request, "tienda/crear_pedido_items.html")
+
+    return render(request, "tienda/crear_pedido_items.html", {
+        "pedido_form": pedido_form,
+        "formset": formset,
+        "productos_dict": productos_dict,
+    })
 
 
 @transaction.atomic
