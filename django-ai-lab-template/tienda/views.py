@@ -23,7 +23,7 @@ def detalle_producto(request, pk):
 
 #Crear un producto
 def crear_producto(request):
-        if request.methot == "POST":
+        if request.method == "POST":
             form = ProductoForm(request.POST)
             if form.is_valid():
                 form.save()
@@ -88,7 +88,7 @@ def eliminar_pedido(request, pk):
 #Crear Pedido con Items
 @transaction.atomic
 def crear_pedido_items(request):
-    if request.meethod =="POST":
+    if request.method =="POST":
         pedido_form = PedidoSimpleForm(request.POST)
         if pedido_form.is_valid():
             pedido = pedido_form.save()
@@ -111,7 +111,7 @@ def crear_pedido_items(request):
 @transaction.atomic
 def editar_pedido_items(request):
     pedido = get_object_or_404(Pedido, pk=pk)
-    if request.meethod =="POST":
+    if request.method =="POST":
         pedido_form = PedidoSimpleForm(request.POST, instance=pedido)
         formset= PedidoItemFormSet(request.POST,instance=pedido )
         if pedido_form.is_valid and formset.is_valid:

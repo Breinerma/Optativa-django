@@ -22,7 +22,8 @@ class ProductoForm(forms.ModelForm):
                 "step": "0.01",
                 "min": "0"                
             }),
-        }
+        }    
+            
     def clean_precio(self):
         #Si el precio es negativo o 0 se lanza una exepción 
         precio = self.cleaned_data.get("precio")
