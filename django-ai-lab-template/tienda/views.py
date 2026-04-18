@@ -96,7 +96,7 @@ def crear_pedido_items(request):
             if formset.is_valid():
                 formset.save()
                 return redirect("tienda:detalle_pedido", pk=pedido.pk)
-            # Si el formset falla, hay que borrar el pedido guardado
+            #Si el formset falla, hay que borrar el pedido guardado
     else:
         pedido_form = PedidoSimpleForm()
         formset = PedidoItemFormSet()
@@ -113,7 +113,7 @@ def crear_pedido_items(request):
 
 @transaction.atomic
 def editar_pedido_items(request):
-    pedido = get_object_or_404(Pedido, pk=pk)
+    pedido = get_object_or_404(Pedido, pk=pedido.pk)
     if request.method =="POST":
         pedido_form = PedidoSimpleForm(request.POST, instance=pedido)
         formset= PedidoItemFormSet(request.POST,instance=pedido )
