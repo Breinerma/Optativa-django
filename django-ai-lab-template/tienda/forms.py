@@ -49,7 +49,7 @@ class PedidoSimpleForm(forms.ModelForm):
 class PedidoItemForm(forms.ModelForm):
     class Meta:
        model = PedidoItem
-       fields = ["productos", "cantidad", "precio_unitario"]
+       fields = ["producto", "cantidad", "precio_unitario"]
        widgets = {
            "cantidad": forms.NumberInput(attrs={"min": "1", "step": "1"}),
             "precio_unitario": forms.NumberInput(attrs={"min": "0", "step": "0.01"}) }

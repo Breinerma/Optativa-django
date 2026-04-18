@@ -1,4 +1,4 @@
-{% extends "tienda./base.html" %} 
+{% extends "tienda/base.html" %} 
 {% block title %} Pedido {{pedido.id}} {% endblock %} 
 {% load django_browser_reload %}
 
@@ -20,7 +20,7 @@
                     <td>{{ it.producto.nombre}}</td>
                     <td>{{ it.cantidad}}</td>
                     <td>{{ it.precio_unitario|floatformat:2}}</td>
-                    <td>{{ it.inline_total|floatformat:2}}</td>
+                    <td>{{ it.line_total|floatformat:2}}</td>
                 </tr>
             {% endfor %}
         </table>
