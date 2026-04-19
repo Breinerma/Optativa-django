@@ -34,7 +34,7 @@ def crear_producto(request):
 
 #Editar un producto
 def editar_producto(request, pk):
-    producto = get_object_or_404(producto, pk=pk)
+    producto = get_object_or_404(Producto, pk=pk)
     if request.method == "POST":
         form = ProductoForm(request.POST, instance=producto) 
         if form.is_valid():

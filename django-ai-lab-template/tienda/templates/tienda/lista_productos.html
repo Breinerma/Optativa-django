@@ -7,7 +7,8 @@
     {% for p in productos %}
     <li>
       <a href=" {% url 'tienda:detalle_producto' p.pk %}">{{ p.nombre }}</a> -
-      ${{ p.precio|floatformat:2 }}
+      ${{ p.precio|floatformat:2 }} -
+      En stock: {{ p.stock }}
     </li>
     {% endfor %}
   </ul>

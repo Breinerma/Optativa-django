@@ -9,7 +9,7 @@ class ProductoForm(forms.ModelForm):
     
     class Meta:
         model = Producto
-        fields = ("nombre", "descripcion", "precio")
+        fields = ("nombre", "descripcion", "precio", "stock")
         widgets = {
             "nombre": forms.TextInput(attrs={
                 "placeholder": "Nombre del Producto"
@@ -22,6 +22,10 @@ class ProductoForm(forms.ModelForm):
                 "step": "0.01",
                 "min": "0"                
             }),
+            "stock": forms.NumberInput(attrs={
+                "step": "1",
+                "min": "0"                
+            }),
         }    
             
     def clean_precio(self):
@@ -30,6 +34,13 @@ class ProductoForm(forms.ModelForm):
         if precio is not None and precio <= 0:
             raise forms.ValidationError("El precio debe ser mayor que 0, Pendejo.")
         return precio
+    
+    def clean_stock(self):
+        #Si el precio es negativo o 0 se lanza una exepción 
+        stock = self.cleaned_data.get("stock")
+        if stock is not None and stock <= 0:
+            raise forms.ValidationError(" ¿Cómo vas a agregarlo si no hay?, Pendejo.")
+        return stock
     
 class ClienteForm(forms.ModelForm):
     class Meta:
