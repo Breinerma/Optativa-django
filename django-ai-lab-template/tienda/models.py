@@ -44,3 +44,4 @@ class PedidoItem(models.Model):
         '''
         No se pemitirá que existan dos filas con la misma
         '''
+        unique_together= ("pedido", "producto")
