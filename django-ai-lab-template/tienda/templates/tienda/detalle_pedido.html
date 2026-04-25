@@ -9,12 +9,15 @@
     <h3> Productos  </h3>
     {% if items %}
         <table> 
+            <thead>
             <tr>
                 <th class="encabezado">Producto</th>
                 <th class="encabezado">Cantidad</th>
                 <th class="encabezado">Precio Unitario</th>
                 <th class="encabezado">Sub Total</th>
             </tr>
+        </thead>
+        <tbody>
             {% for it in items %}
                 <tr>
                     <td>{{ it.producto.nombre}}</td>
@@ -22,11 +25,26 @@
                     <td>{{ it.precio_unitario|floatformat:2}}</td>
                     <td>{{ it.line_total|floatformat:2}}</td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4"> Este pedido no tiene Ítems</td>
+                </tr>
             {% endfor %}
+            </tbody>
+            <tfood>
+                <td colspan="3"> Total a Pagar</td>
+                <td> ${{ total_pedido|floatformat:2 }}</td>
+            </tfood>
         </table>
 
     {% else %}
+    <p>Este pedido no tien Ítems.</p>
     {% endif %}
-
+    <p>
+        <a href="{% url 'tienda:editar_pedido_items' pedido.pk %}" class="btn primary">Editar pedido</a>
+        <a href="{% url 'tienda:eliminar_pedido' pedido.pk %}" class="btn primary">Eliminar pedido</a>
+        <a href="{% url 'tienda:lista_pedidos' %}" class="btn primary">Volver a las lista</a>
+    
+    </p>
     {% django_browser_reload_script %}
 {% endblock %}

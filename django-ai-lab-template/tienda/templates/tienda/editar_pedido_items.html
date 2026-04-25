@@ -1,16 +1,14 @@
-{% extends "tienda/base.html" %}
-{% block title %} Nuevo Pedido {% endblock %}
+{% extends "tienda/base.html" %} 
+{% block title %}Editar pedido #{{ pedido.pk}}{% endblock %}
 {% load django_browser_reload %}
-
 {% block content %}
-    <h1> Nuevo Pedido </h1>
+    <h1>Editar Pedido # {{pedido.pk}}</h1>
     <form method="post">
         {% csrf_token %}
         <fieldset>
             <legend> Datos del pedido </legend>
             {{ pedido_form.as_p }}
         </fieldset>
-
         <fieldset>
             <legend> Ítems </legend>
             {{ formset.management_form }}
@@ -19,39 +17,34 @@
                     {{ form.as_p }}
                     {% if form.instance.pk %}
                         <label>
-                            {{ form.DELETE }}
-                            Eliminar ítem
+                            {{ form.DELETE }} Eliminar item
                         </label>
                     {% endif %}
                 </div>
             {% endfor %}
         </fieldset>
+        <button class="btn primary"> Actualizar </button>
+        <a href="{% url 'tienda:detalle_pedido' pedido.pk %}" class="btn primary">Volver</a>
+    </form> 
 
-        <button class="btn primary" type="submit"> Guardar </button>
-        <a href="{% url 'tienda:lista_pedidos' %}"> Cancelar </a>
-    </form>
     <script>
-        // Diccionario con los precios de cada producto
         const precios = {{ productos_dict|safe }};
 
         function actualizarPrecio(selectElement) {
-            const productoId = selectElement.value;
-            // Encontrar el input de precio_unitario del mismo item
             const itemDiv = selectElement.closest(".item");
             const precioInput = itemDiv.querySelector("input[id$='-precio_unitario']");
-        
             if (precioInput) {
-             precioInput.value = precios[productoId] || "";
-            }
-        }
-       // Asignar el evento a cada select de producto al cargar la página
+                precioInput.value = precios[selectElement.value] || "";
+            }}
+
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll("select[id$='-producto']").forEach(function (select) {
                 select.addEventListener("change", function () {
-                        actualizarPrecio(this);
+                    actualizarPrecio(this);
                 });
             });
         });
     </script>
-    {% django_browser_reload_script %}
-{% endblock %}
+
+{% django_browser_reload_script %}
+{% endblock  %}

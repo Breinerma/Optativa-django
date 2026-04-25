@@ -39,7 +39,7 @@ def editar_producto(request, pk):
         form = ProductoForm(request.POST, instance=producto) 
         if form.is_valid():
             form.save() 
-            return redirect("tienda:detalle_producto", pk=producto.pk)
+            return redirect("tienda:detalle_producto", pk=pk)
     else:
         
         form =  ProductoForm(instance=producto)
@@ -112,19 +112,28 @@ def crear_pedido_items(request):
 
 
 @transaction.atomic
-def editar_pedido_items(request):
-    pedido = get_object_or_404(Pedido, pk=pedido.pk)
-    if request.method =="POST":
+def editar_pedido_items(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)
+    if request.method == "POST":
         pedido_form = PedidoSimpleForm(request.POST, instance=pedido)
-        formset= PedidoItemFormSet(request.POST,instance=pedido )
-        if pedido_form.is_valid and formset.is_valid:
+        formset = PedidoItemFormSet(request.POST, instance=pedido)
+        if pedido_form.is_valid() and formset.is_valid():
             pedido_form.save()
             formset.save()
-            return redirect("tienda:detalle_pedido.html")
+            return redirect("tienda:detalle_pedido", pk=pedido.pk) 
+    else:
+        pedido_form = PedidoSimpleForm(instance=pedido)
+        formset = PedidoItemFormSet(instance=pedido)
 
-    return render(request, "tienda/crear_editar_items.html", {
-        "pedido": pedido, "pedido_form": pedido_form, "formset": formset,
-        })
+    productos = Producto.objects.all()
+    productos_dict = {str(p.id): float(p.precio) for p in productos}  
+
+    return render(request, "tienda/editar_pedido_items.html", {
+        "pedido": pedido,
+        "pedido_form": pedido_form,
+        "formset": formset,
+        "productos_dict": productos_dict,  
+    })
 
 #---------------------------------------------
 #CLIENTE
